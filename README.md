@@ -1,0 +1,5 @@
+ - Comunicação assíncrona entre microsserviços
+ - Conversor de vídeo multithreading
+ - Python com Django
+ - Frontend utilizando Next.js
+ - Containers com Docker
