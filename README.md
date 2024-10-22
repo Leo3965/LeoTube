@@ -90,3 +90,4 @@ python manage.py runserver
 ```
 
 Acesse o admin em http://localhost:8000/admin.
+PgAdmin em http://localhost:5050
