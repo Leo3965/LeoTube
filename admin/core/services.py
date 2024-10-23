@@ -115,8 +115,6 @@ class VideoMediaNotExistsException(Exception):
 class VideoChunkUploadException(Exception):
     pass
 
-        
-
 
 class Storage:
 
