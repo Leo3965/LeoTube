@@ -23,3 +23,12 @@ go.work.sum
 
 # env file
 .env
+
+admin/thumbnails/
+admin/.venv/
+admin/core/__pycache__
+admin/videos/__pycache__
+admin/core/migrations/__pycache__
+
+admin/db.sqlite3
+admin/.history/
