@@ -2,3 +2,5 @@ include:
   - ./transcode/docker-compose.yaml
   - ./admin/docker-compose.yaml
   - ./nextjs/docker-compose.yaml
+  
+  # sudo docker volume create external-storage
