@@ -2,6 +2,8 @@
 
 Mini "YouTube" que possibilitará fazermos o gerenciamento, upload, conversão e playback dos vídeos
 
+ > Imersão Fullcycle - Plataforma de streaming de vídeos
+
 - Comunicação assíncrona entre microsserviços
 - Conversor de vídeo multithreading
 - Python com Django
