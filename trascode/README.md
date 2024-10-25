@@ -1,5 +1,10 @@
 ## Descrição
 
+Baixando dependências
+```bash
+go mod tidy
+```
+
 Repositório do Golang (conversor de vídeos)
 
 ## Rodar a aplicação
