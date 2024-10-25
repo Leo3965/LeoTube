@@ -21,7 +21,8 @@ class VideoService:
         directory = self.get_chunk_directory(video_id)
 
         # Atualiza o status para 'UPLOADED_STARTED' e armazena o chunk
-        with transaction.atomic():
+        sid = transaction.savepoint()
+        try:
             video_media = self.__prepare_video_media(video)
 
             if video_media.status == VideoMedia.Status.PROCESS_STARTED: #upload finalizado
@@ -41,6 +42,10 @@ class VideoService:
             video_media.status = VideoMedia.Status.UPLOADED_STARTED
             video_media.save()
             self.storage.storage_chunk(str(video_media.video_path), chunk_index, chunk)
+            transaction.savepoint_commit(sid)
+        except Exception as e:
+            transaction.savepoint_rollback(sid)
+            raise e
 
     def __prepare_video_media(self, video: Video) -> VideoMedia:
         try:
@@ -99,7 +104,7 @@ class VideoService:
         video_media = video.video_media
         if video_media.status != VideoMedia.Status.PROCESS_STARTED:
             raise VideoMediaInvalidStatusException('Processing must be started to finish it.')
-        video_media.video_path = video_path
+        video_media.video_path = video_path.replace('/media/uploads/', '') + '/mpeg-dash/output.mpd'
         video_media.status = VideoMedia.Status.PROCESS_FINISHED
         video_media.save()
     
