@@ -1,4 +1,4 @@
 include:
-  - ./golang/docker-compose.yaml
-  - ./django/docker-compose.yaml
+  - ./transcode/docker-compose.yaml
+  - ./admin/docker-compose.yaml
   - ./nextjs/docker-compose.yaml
