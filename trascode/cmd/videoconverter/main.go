@@ -1,7 +1,6 @@
 package main
 
 import (
-
 	"context"
 	"database/sql"
 	"fmt"
@@ -13,12 +12,12 @@ import (
 
 	"imersaofc/internal/converter"
 	"imersaofc/pkg/log"
+	"imersaofc/pkg/rabbitmq"
 
 	"imersaofc/pkg/rabbitmq"
 
 	_ "github.com/lib/pq"
 	"github.com/streadway/amqp"
-
 )
 
 // connectPostgres establishes a connection with PostgreSQL using environment variables for configuration.
@@ -71,7 +70,6 @@ func main() {
 	}
 	defer db.Close()
 
-
 	rabbitMQURL := getEnvOrDefault("RABBITMQ_URL", "amqp://guest:guest@rabbitmq:5672/")
 	rabbitClient, err := rabbitmq.NewRabbitClient(ctx, rabbitMQURL)
 	if err != nil {
@@ -89,6 +87,7 @@ func main() {
 
 	videoConverter := converter.NewVideoConverter(rabbitClient, db, rootPath)
 
+
 	// Consumir mensagens da fila de conversão
 	msgs, err := rabbitClient.ConsumeMessages(conversionExch, conversionKey, queueName)
 	if err != nil {
@@ -101,7 +100,6 @@ func main() {
 	go func() {
 		for d := range msgs {
 			wg.Add(1)
-
 			go func(delivery amqp.Delivery) {
 				defer wg.Done()
 				videoConverter.HandleMessage(ctx, delivery, conversionExch, confirmationKey, confirmationQueue)
